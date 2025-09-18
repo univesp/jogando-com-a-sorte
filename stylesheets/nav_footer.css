@@ -1,0 +1,56 @@
+/* Botão Pular para Conteúdo Principal */
+
+nav .logo .pularNavegacao {
+  background-color: white;
+  color: #607989;
+}
+
+/* Caixa do Logotipo */
+
+nav .logo img {
+  background-color: #daa51f;
+}
+
+/* Botões do Navbar */
+
+nav .nav-link {
+  color: #607989;
+  background-color: #daa51f;
+  padding-top: 15px
+}
+
+nav .nav-link:focus,
+nav .nav-link:hover,
+nav .nav-link[aria-expanded="true"] {
+  background-color: goldenrod;
+  color: #607989;
+}
+
+/* Rodapé */
+footer .btn {
+  white-space: nowrap;
+}
+
+footer, footer .aval-rea .btn-secondary {
+  background-color: goldenrod;
+  color: #40327a;
+}
+
+/* Main */
+
+main {
+  padding-top: 9rem;
+  padding-bottom: 0rem;
+}
+
+@media only screen and (max-width: 992px) {
+
+  main {
+    padding-top: 6rem;
+    padding-bottom: 2rem;
+  }
+
+}
+footer .cred-rea span:not(:last-child) {
+    border-right: 1px solid #40327a;
+    padding-right: .5rem

@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:image" content="assets/fb-share.png">
+  <meta name="author" content="Univesp">
+
+  <meta name="description" property="og:description" content="Faz parte do estudo de Estatística o cálculo de probabilidade em diferentes situações.
+O recurso permite que o usuário, de forma lúdica, visualize como as probabilidades vão se alterando conforme o jogo se desenrola e quais os cálculos envolvidos.
+">
+
+  <meta name="keywords" content="Estatística, cálculo de probabilidade, jogos de azar">
+
+  <title>Univesp | Jogando com a Sorte </title>
+
+  <link rel="shortcut icon" href="http://apps.univesp.br/common/favicon.ico" type="image/x-icon" />
+
+  <!-- Arquivos Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+
+  <!-- Ícones por Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <!-- Ícones por Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Tipografia institucional por Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Barlow:300,400,700|Open+Sans:400,400i,700,700i|Cinzel:Bold|Abril+Fatface" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+  <!-- Compartilhamento por jsSocials -->
+  <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" />
+  <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-minima.css" />
+
+  <!-- Animate CSS. Descomente se for utilizar. Caso contrário, remova. -->
+  <!-- <link rel="stylesheet" href="https://apps.univesp.br/common/animate.css"> -->
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="https://apps.univesp.br/common/rea-geral-2.0.css">
+  <link rel="stylesheet" href="stylesheets/nav_footer.css">
+  <link rel="stylesheet" href="stylesheets/main.css">
+
+</head>
+
+<body class="d-flex flex-column body" alt="Fundo de mesa de cassino">
+
+  <!-- Utilizar essa DIV caso o REA não se adapte a todos os tamanhos de tela -->
+  <!-- <div class="esconder-tela-pequena"> -->
+
+  <!-- Menu -->
+  <nav>
+    <div class="container d-flex justify-content-end">
+
+      <div class="logo">
+        <a href="https://univesp.br/" target="_blank">
+          <img src="https://apps.univesp.br/common/colorida-negativa.svg" alt="Link para site institucional. Logotipo da universidade formado pela palavra Univesp em letras maiúsculas, sendo a letra V estilizada.">
+
+          <!-- outras opções de img src: colorida-negativa.svg, traco-positiva.svg, traco-negativa.svg -->
+        </a>
+
+      </div>
+
+      <ul class="nav justify-content-end">
+
+        <!-- <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="material-icons" aria-label="Menu de acessibilidade">accessibility_new</i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+            ...
+          </div>
+        </li> -->
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="material-icons" aria-label="Opções de Compartilhamento" style="color: white">share</i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <div class="sharing" id="share-buttons"></div>
+          </div>
+        </li>
+
+      </ul>
+
+    </div>
+  </nav>
+
+  <!-- Conteúdo -->
+  <main id="conteudoPrincipal">
+    <div id="manual" style="display: none;  background-color: #58595b;">
+      <ul class="list_instrucao" id="content">
+        <li class="link">
+          <h4 class="instrucao" style=" color: #fff200; font-family: 'Bee';  font-size: 34px;">Instruções</h4>
+        </li><br>
+        <li><b style=" color: #fff200;">1.</b> Você tem um conjunto com 4 cartas com a imagem de uma melancia e 6 cartas com a imagem de uma maçã. Elas estão embaralhadas e com a face voltada para baixo. Você vai desvirar as cartas, uma por uma, e
+          quando todas de um mesmo naipe estiverem desviradas, a partida termina e é feita a contagem dos pontos.
+        </li><br>
+        <li><b style=" color: #fff200;">2.</b> Para começar a jogar, é necessário primeiro apostar qual é o naipe que vai ter todas as cartas reveladas antes; se você acertar, vai receber uma pontuação extra correspondente ao risco escolhido. Não é
+          obrigatório, mas você pode também apostar quantas jogadas serão necessárias até que todas as cartas de um mesmo naipe apareçam desviradas; se você acertar, vai receber uma pontuação extra correspondente ao risco escolhido, mesmo que o naipe
+          não seja o mesmo da sua primeira aposta.</li><br>
+        <li><b style=" color: #fff200;">3.</b> Na pontuação da partida, são somadas apenas as cartas do naipe escolhido na primeira aposta, mesmo que você não tenha vencido. As cartas com a imagem de melancia valem 3 pontos (no máximo 12 pontos por
+          partida) e as cartas com imagem de maçã valem 2 pontos (no máximo 12 pontos por partida).</li>
+        <br>
+        <li style="float: right; padding: 2%;"><i class="material-icons close" style=" color: #fff200;">highlight_off
+          </i></li>
+      </ul>
+
+    </div>
+    <div id="entenda" style="display: none;  background-color: #58595b;">
+      <ul class="list_entenda" id="content">
+        <li class="link">
+          <h4 class="entenda" style=" color: #fff200; font-family: 'Bee';  font-size: 34px;">Entenda o que está acontecendo</h4>
+        </li><br>
+        <li>Você tem um conjunto de 10 cartas, sendo que 4 são de um naipe e 6 são de outro naipe. As cartas são embaralhadas e dispostas sobre uma mesa com a face voltada para baixo.</li><br>
+        <li><b style=" color: #fff200;">1.</b> Se você for virando, aleatoriamente, uma por uma das cartas e revelando o naipe, a probabilidade de que um dos naipes seja revelado todo por primeiro é dada pela seguinte equação:</span>
+          <p>$$P(N)=\frac{n(N) ! \times n(S-N) !}{n(S) !}$$</p>
+        </li><br>
+        <li>Considere que <i>P(N)</i> é a probabilidade de um naipe ser revelado todo por primeiro, que <i>n(N)</i> é a quantidade de cartas de um determinado naipe e que <i>n(S)</i> é a quantidade total de cartas.</li><br>
+        <li>Aplicando à situação-problema deste jogo, temos o seguinte quadro:</li><br>
+
+        <div class="Rtable Rtable--3cols">
+
+          <!--linha 1-->
+          <div class="Rtable-cell" style="color: #fff200; width: 20%!important">Naipe</div>
+          <div class="Rtable-cell" style="color: #fff200; width: 55%!important">Equação</div>
+          <div class="Rtable-cell" style="color: #fff200; width: 25%!important; padding: 0.5em 0.2em!important;">Probabilidade</div>
+
+          <!--linha 2-->
+          <div class="Rtable-cell" style=" width: 20%!important">Melancia (A)<br>4 cartas</div>
+          <div class="Rtable-cell" style=" width: 55%!important">
+            <p>\( P(A) =\frac{4 ! \times(10-4) !}{10 !}\)</p>
+            <p>\( =\frac{(4.3 .2 .1) \times(6.5 .4 .3 .2 .1)}{10.9 .8 .7 .6 .5 .4 .3 .2 .1}\)</p>
+            <p>\( =\frac{24 \times 720}{3628800}=0,0047619047\)</p>
+          </div>
+          <div class="Rtable-cell" style=" width: 25%!important">0,48%</div>
+
+          <!--linha 1-->
+          <div class="Rtable-cell" style=" width: 20%!important">Maçã (B)<br>6 cartas</div>
+          <div class="Rtable-cell" style=" width: 55%!important">
+            <p>\( P(B)  =\frac{6 ! \times(10-6) !}{10 !}\\ =\frac{(6.5.4.3.2.1) \times(4.3.2.1)}{10.9.8.7.6.5.4.3.2.1}\\ =\frac{720 \times 24}{3628800}=0,0047619047\)</p>
+          </div>
+          <div class="Rtable-cell" style=" width: 25%!important">0,48%</div>
+        </div>
+
+        <li>
+          <p><b style=" color: #fff200;">2. </b>No momento em que você vai revelar uma das cartas, a probabilidade de que ela seja de um ou de outro naipe é dada pela seguinte equação:</p>
+          <p>\begin{equation} P(n) = \frac{n(N)}{n(S)}\end{equation}</p>
+        </li>
+
+        <li>Considere que <i>P(N)</i> é a probabilidade de um naipe ser revelado naquele momento, que <i>n(N)</i> é a quantidade atual de cartas de um determinado naipe e que <i>n(S)</i> é a quantidade atual de cartas de todos os naipes.</li><br>
+        <li>Aplicando à situação problema deste jogo, temos o seguinte quadro para a primeira jogada:</li><br>
+
+        <div class="Rtable Rtable--3cols">
+
+          <!--linha 1-->
+          <div class="Rtable-cell" style="color: #fff200; width: 25%!important" align = "center">Naipe</div>
+          <div class="Rtable-cell" style="color: #fff200; width: 42%!important" align = "center">1ª Jogada</div>
+          <div class="Rtable-cell" style="color: #fff200; width: 33%!important" align = "center">Probabilidade</div>
+
+          <!--linha 2-->
+          <div class="Rtable-cell" style="width: 25%!important" align = "center">Melancia (A)</div>
+          <div class="Rtable-cell" style="width: 42%!important" align = "center"><p>\( P(A)  =\frac{n(A)}{n(S)}=\frac{4}{10}\)</p></div>
+          <div class="Rtable-cell" style="width: 33%!important" align = "center">40%</div>
+
+          <!--linha 3-->
+          <div class="Rtable-cell" style="width: 25%!important" align = "center">Maçã (B)</div>
+          <div class="Rtable-cell" style="width: 42%!important" align = "center"><p>\( P(B) =\frac{n(B)}{n(S)} =\frac{6}{10} \)</p></div>
+          <div class="Rtable-cell" style="width: 33%!important" align = "center">60%</div>
+
+        </div>
+
+        <li>
+          <p><b style=" color: #fff200;">3.</b> Caso você queira combinar 2 apostas (a escolha de um naipe com a escolha da quantidade de jogadas), a probabilidade desse evento acontecer é dada pela seguinte equação:</p>
+          <p>\( P(N | x)=\frac{n(N) ! \times n(S-N) !}{n(S) !} \times \frac{(x-1) !}{(n(N)-1) ! \times(x-n(N)) !}\)</p>
+        </li><br>
+        <li>Considere que <i>P(N|x)</i> é a probabilidade de um naipe ser revelado em uma determinada jogada, que <i>n(N)</i> é a quantidade de cartas de um determinado naipe, que <i>n(S)</i> é a quantidade total de cartas de todos os naipes, e que x
+          é o número de jogadas.</li><br>
+        <li>
+          <p>Vamos ver a fórmula aplicada em duas situações, sendo (A) melancia e (B) maçã:</p>
+          <p>\( \displaystyle P(A |x= 5)  = \frac{4 ! \times 6 !}{10 !} \times \frac{4 !}{3 ! \times 1 !} \)</p>
+          <p>\( \displaystyle  = \frac{(4.3 .2 .1) \times(6 .5 .4 .3 .2 .1)}{(10.9 .8 .7 .6 .5 .4 .3 .2 .1)} \times \frac{(4.3 .2 .1)}{(3.2 .1) \times 1} \)</p>
+          <p>\( \displaystyle  = \frac{24 \times 720}{3628800} \times \frac{4}{1} \)</p>
+          <p>\( \displaystyle  = 0,019047619047619 \text { ou } 1,905  \)</p>
+          <p>\( \displaystyle P(B |x= 7)  = \frac{6 ! \times 4 !}{10 !} \times \frac{(7-1) !}{(6-1) ! \times(7-6) !}\)</p>
+          <p>\( \displaystyle = \frac{(6.5 .4 .3 .2 .1) \times(4.3 .2 .1)}{(10.9 .8 .7 .6 .5 .4 .3 .2 .1)} \times \frac{(6.5 .4 .3 .2 .1)}{(5.4 .3 .2 .1) \times 1}\)</p>
+          <p>\( \displaystyle = \frac{720 \times 24}{3628800} \times \frac{6}{1}\)</p>
+          <p>\( \displaystyle = 0,0285714285714286 \text { ou } 2,857 \% \)</p>
+        </li>
+
+        <br>
+
+        <li>Observe o quadro resumo das probabilidades por naipe:</li><br>
+        <li>Melancia (A)</li><br>
+        <div class="Rtable Rtable--4cols">
+          <!--linha 1-->
+          <div class="Rtable-cell" align = "center" style="color: #fff200; width: 19%"><strong>
+              <p style="font-size:12px">Número de jogadas</p>
+            </strong></div>
+          <div class="Rtable-cell" align = "center" style="color: #fff200; width: 27%"><strong>
+              <p style="font-size:12px">Probabilidade do naipe</p>
+            </strong></div>
+          <div class="Rtable-cell" align = "center" style="color: #fff200;width: 27%"><strong>
+              <p style="font-size:12px">Combinações</p>
+            </strong></div>
+          <div class="Rtable-cell" align = "center" style="color: #fff200;width: 27%"><strong>
+              <p style="font-size:12px">Total de probabilidade</p>
+            </strong></div>
+
+          <!--Linha 2-->
+          <div class="Rtable-cell" style = "width: 19%">4</div>
+          <div class="Rtable-cell" style = "width: 27%">0,476%</div>
+          <div class="Rtable-cell" style = "width: 27%">1</div>
+          <div class="Rtable-cell" style = "width: 27%">0,476%</div>
+
+          <!--Linha 3-->
+          <div class="Rtable-cell" style="width: 19%">5</div>
+          <div class="Rtable-cell" style="width: 27%">0,476%</div>
+          <div class="Rtable-cell" style="width: 27%">4</div>
+          <div class="Rtable-cell" style="width: 27%">1,905%</div>
+
+          <!--Linha 4-->
+          <div class="Rtable-cell" style="width: 19%">6</div>
+          <div class="Rtable-cell" style="width: 27%">0,476%</div>
+          <div class="Rtable-cell" style="width: 27%">10</div>
+          <div class="Rtable-cell" style="width: 27%">4,762%</div>
+
+          <!--Linha 5-->
+          <div class="Rtable-cell" style="width: 19%">7</div>
+          <div class="Rtable-cell" style="width: 27%">0,476%</div>
+          <div class="Rtable-cell" style="width: 27%">20</div>
+          <div class="Rtable-cell" style="width: 27%">9,524%</div>
+
+          <!--Linha 6-->
+          <div class="Rtable-cell" style="width: 19%">8</div>
+          <div class="Rtable-cell" style="width: 27%">0,476%</div>
+          <div class="Rtable-cell" style="width: 27%">35</div>
+          <div class="Rtable-cell" style="width: 27%">16,667%</div>
+
+          <!--Linha 7-->
+          <div class="Rtable-cell" style="width: 19%">9</div>
+          <div class="Rtable-cell" style="width: 27%">0,476%</div>
+          <div class="Rtable-cell" style="width: 27%">56</div>
+          <div class="Rtable-cell" style="width: 27%">26,667%</div>
+
+          <!--Linha 8-->
+          <div class="Rtable-cell" style="width: 19%"></div>
+          <div class="Rtable-cell" style="width: 27%"></div>
+          <div class="Rtable-cell" style="width: 27%"><strong>Total</strong></div>
+          <div class="Rtable-cell" style="width: 27%"><strong>60%</strong></div>
+        </div>
+
+        <br>
+
+        <li>Maçã (B)</li><br>
+        <div class="Rtable Rtable--4cols">
+
+          <!--linha 1-->
+          <div align = "center" class="Rtable-cell" style="color: #fff200; width: 19%"><strong><p style="font-size:12px">Número de jogadas</p></strong></div>
+          <div align = "center" class="Rtable-cell" style="color: #fff200; width: 27%"><strong><p style="font-size:12px">Probabilidade do naipe</p></strong></div>
+          <div align = "center" class="Rtable-cell" style="color: #fff200; width: 27%"><strong><p style="font-size:12px">Combinações</p></strong></div>
+          <div align = "center" class="Rtable-cell" style="color: #fff200; width: 27%"><strong><p style="font-size:12px">Total de probabilidade</p></strong></div>
+
+          <!--Linha 2-->
+          <div class="Rtable-cell" style="width: 19%">6</div>
+          <div class="Rtable-cell" style="width: 27%">0,476%</div>
+          <div class="Rtable-cell" style="width: 27%">1</div>
+          <div class="Rtable-cell" style="width: 27%">0,476%</div>
+
+          <!--Linha 3-->
+          <div class="Rtable-cell" style="width: 19%">7</div>
+          <div class="Rtable-cell" style="width: 27%">0,476%</div>
+          <div class="Rtable-cell" style="width: 27%">6</div>
+          <div class="Rtable-cell" style="width: 27%">2,857%</div>
+
+          <!--Linha 4-->
+          <div class="Rtable-cell" style="width: 19%">8</div>
+          <div class="Rtable-cell" style="width: 27%">0,476%</div>
+          <div class="Rtable-cell" style="width: 27%">21</div>
+          <div class="Rtable-cell" style="width: 27%">10,000%</div>
+
+          <!--Linha 5-->
+          <div class="Rtable-cell" style="width: 19%">9</div>
+          <div class="Rtable-cell" style="width: 27%">0,476%</div>
+          <div class="Rtable-cell" style="width: 27%">56</div>
+          <div class="Rtable-cell" style="width: 27%">26,667%</div>
+
+          <!--Linha 6-->
+          <div class="Rtable-cell" style="width: 19%"></div>
+          <div class="Rtable-cell" style="width: 27%"></div>
+          <div class="Rtable-cell" style="width: 27%"><strong>Total</strong></div>
+          <div class="Rtable-cell" style="width: 27%"><strong>40%</strong></div>
+        </div>
+
+
+        <br>
+
+        <br>
+        <li style="float: right; padding: 2%;"><i class="material-icons close2" style=" color: #fff200; cursor: pointer;">highlight_off
+          </i></li>
+      </ul>
+
+    </div>
+
+    <div id="sugestao" style="display: none;  background-color: #58595b;">
+      <ul class="list_sugestao" id="content">
+        <li class="link">
+          <h4 class="sugestao" style=" color: #fff200; font-family: 'Bee';  font-size: 34px;">Sugestões de utilização</h4>
+        </li><br>
+        <li>É possível utilizar este jogo para fazer algumas reflexões preferencialmente em grupo.
+          Antes de fazer a reflexão, jogue diversas partidas, registrando o resultado na seguinte tabela:
+        </li>
+        <div class="Rtable Rtable--4cols">
+
+          <div class="Rtable-cell" style="color: #fff200;" style="color: #fff200;">Jogadas por Cartas</div>
+          <div class="Rtable-cell" style="color: #fff200;">Melancia</div>
+          <div class="Rtable-cell" style="color: #fff200;">Maçã</div>
+          <div class="Rtable-cell" style="color: #fff200;"><strong>Total por jogada</strong></div>
+
+          <div class="Rtable-cell">4 jogadas</div>
+          <div class="Rtable-cell"></div>
+          <div class="Rtable-cell"></div>
+          <div class="Rtable-cell"></div>
+
+          <div class="Rtable-cell">5 jogadas</div>
+          <div class="Rtable-cell"></div>
+          <div class="Rtable-cell"></div>
+          <div class="Rtable-cell"></div>
+
+          <div class="Rtable-cell">6 jogadas</div>
+          <div class="Rtable-cell"></div>
+          <div class="Rtable-cell"></div>
+          <div class="Rtable-cell"></div>
+
+          <div class="Rtable-cell">7 jogadas</div>
+          <div class="Rtable-cell"></div>
+          <div class="Rtable-cell"></div>
+          <div class="Rtable-cell"></div>
+
+          <div class="Rtable-cell">8 jogadas</div>
+          <div class="Rtable-cell"></div>
+          <div class="Rtable-cell"></div>
+          <div class="Rtable-cell"></div>
+
+          <div class="Rtable-cell">9 jogadas</div>
+          <div class="Rtable-cell"></div>
+          <div class="Rtable-cell"></div>
+          <div class="Rtable-cell"></div>
+
+          <div class="Rtable-cell" style="color: #fff200;"><strong>Total por carta</strong></div>
+          <div class="Rtable-cell"></div>
+          <div class="Rtable-cell"></div>
+          <div class="Rtable-cell"></div>
+
+        </div>
+        <br>
+
+        <li><b style=" color: #fff200;">Reflexão 1</b><br> O resultado da sequência de jogos se aproxima das probabilidades calculadas para cada evento? Construa os espaços amostrais e compare com os eventos favoráveis a cada cenário desejado.</li>
+        <br>
+        <li><b style=" color: #fff200;">Reflexão 2</b><br> O jogo pode ser aplicado como parte de uma dinâmica de grupo, dependendo do nível de maturidade dos participantes, voltada a discutir conceitos como interação social ou ética, por
+          exemplo.<br>
+          Peça para os participantes considerarem a escolha de uma carta como uma ação dentro de um grupo de pessoas. Em seguida, diga-lhes para observar como as possibilidades de resposta se alteram a partir da carta que foi escolhida. Por fim, abra
+          a discussão para que os participantes possam falar sobre a importância de escolher a decisão a ser tomada a cada passo, principalmente quando a pessoa conhece qual ação está escolhendo, ao contrário do jogo, situação em que a carta está com a
+          face escondida.
+        </li>
+        <div style="float: right; padding: 2%;"><i class="material-icons close3" style=" color: #fff200; cursor: pointer;">highlight_off
+          </i></div><br>
+      </ul>
+
+    </div>
+    <div class="container etapa1" align="center">
+      <div class="row justify-content-center">
+        <div class="titulo" style="text-align: center; padding-bottom: 10%;    padding-top: 3%;">Jogando <br>
+          <div class="titulo2">com &nbsp;&nbsp;&nbsp;&nbsp;a</div>
+          <div class="titulo3">&nbsp;Sorte</div>
+        </div>
+      </div>
+
+
+
+      <div class="row justify-content-center">
+        <div class="col-sm-8">
+          <h4 style="color: #fff200; text-align: left; padding-bottom: 2%; font-weight: 600;">De onde vem o fascínio por apostar?</h4>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-sm-4">
+          <p style="color: white;text-align: left;">Na Mesopotâmia, a vida era regida pelos astros; na Grécia antiga, o destino era tecido pelas cegas deusas Moiras.</p>
+          <p style="color: white;text-align: left;">Já para o persa Zaratustra e também para a tradição judaico-cristã, o destino se faz a partir da livre escolha das pessoas.</p>
+          <p style="color: white;text-align: left;">Qualquer escolha, por mais insignificante que seja, é uma aposta que a gente espera dar certo. Mas nem sempre dá. </p>
+        </div>
+        <div class="col-sm-4">
+          <p style="color: white;text-align: left;">E a gente fica se perguntando: qual a chance de acertar?</p>
+
+          <p style="color: white;text-align: left;">Há quem só aposte se achar que dá pra ganhar. Mas tem outros que adoram se arriscar.</p>
+
+          <p style="color: white;text-align: left; padding-bottom: 4%;">Quer apostar?</p>
+          <div class="avancarEtapa2">Iniciar jogo<img src="assets/setas.png" style="width: 12%;"></div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    <div class="etapa2" style="display: none;">
+      <div class="container d-flex justify-content-center">
+        <div class="row d-flex justify-content-center">
+          <div class="col-sm-6">
+            <div class="d-flex justify-content-center">
+              <ul id="accordion" class="accordion">
+                <li>
+                  <div class="link" style="border-bottom: 2px solid white;"><i class="large material-icons">format_align_justify</i>Menu<i class="fa fa-chevron-down"></i></div>
+                  <ul class="submenu">
+                    <li><a class="instrucao" style=" font-size: 16px;" href="#">Instruções</a></li>
+                    <li><a class="entenda" style=" font-size: 16px;" href="#">Entenda o que está acontecendo
+                      </a></li>
+                    <li><a class="sugestao" style=" font-size: 16px;" href="#">Sugestões de aplicação</a></li>
+                  </ul>
+                </li>
+                <li>
+
+                  <div class="mensagem" style="display: none;">Faça sua aposta</div>
+                  <div class="link teste3" style="border-bottom: 2px solid white;"><span class="link2">Naipe</span><i class="fa fa-chevron-down"></i></div>
+                  <ul class="submenu" id="escolha">
+                    <li><a class="naipe" style=" font-size: 16px; font-family: 'Open Sans'; color: white;" id="vermelhas" value="vermelhas">Maçã (0,48%)</a></li>
+                    <li><a class="naipe" style=" font-size: 16px; font-family: 'Open Sans'; color: white;" id="pretas" value="pretas">Melancia (0,48%)</a></li>
+                  </ul>
+                </li>
+                <li>
+
+                  <div class="link teste2"><span class="indice"></span> Jogadas<i class="fa fa-chevron-down"></i></div>
+                  <ul class="submenu" id="jogadas">
+                    <li><a class="numero_jogada" style="font-size: 16px; font-family: 'Open Sans'; color: white;" id=" " href="#">Nenhuma das opções</a></li>
+                    <li><a class="numero_jogada" style=" font-size: 16px; font-family: 'Open Sans'; color: white;" id="9" href="#">9 &nbsp(53,33%)</a></li>
+                    <li><a class="numero_jogada" style=" font-size: 16px; font-family: 'Open Sans'; color: white;" id="8" href="#">8 &nbsp(26,67%)</a></li>
+                    <li><a class="numero_jogada" style=" font-size: 16px; font-family: 'Open Sans'; color: white;" id="7" href="#">7 &nbsp(12,38%)</a></li>
+                    <li><a class="numero_jogada" style=" font-size: 16px; font-family: 'Open Sans'; color: white;" id="6" href="#">6 &nbsp(5,24%)</a></li>
+                    <li><a class="numero_jogada" style=" font-size: 16px; font-family: 'Open Sans'; color: white;" id="5" href="#">5 &nbsp(1,90%)</a></li>
+                    <li><a class="numero_jogada" style=" font-size: 16px; font-family: 'Open Sans'; color: white;" id="4" href="#">4 &nbsp(0,48%)</a></li>
+                  </ul>
+                </li>
+                <li>
+            </div>
+
+
+            <div class="row d-flex justify-content-center" style="padding-top: 4px">
+              <div class="placar3 borda-G">
+                <div class="resultado2">Probabilidade da próxima carta</div>
+                <div class="probabilidade justify-content-center" style="display: inline-flex; padding-top: 3%; width: 100%">
+                  <div class="quadro"><img class="maca" src="assets/maça.png" style="width: 60%;"><span id="porcentagem_verm" style="padding: 10%;">60%</span></div>
+                  <div class="quadro2"><img class="melancia" src="assets/melancia.png" style="width: 60%;"><span id="porcentagem_pret" style="padding: 10%;">40%</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 d-flex justify-content-center">
+            <div class="placar borda-h">
+              <div class="resultado borda-p">Resultado</div>
+              <div class="linha destaque borda-p">
+                <div class="dados" style="color: #fff200; font-size:22px; font-weight: 700;">Total</div>
+                <span class="spans" id="total" style="color: #fff200; font-size:22px;">0</span>
+              </div>
+              <div class="linha borda-p">
+                <div class="dados">Pontos/Partida</div>
+                <span class="spans" id="jogo">0</span>
+              </div>
+              <div class="linha borda-p linha_bonus1">
+                <div class="dados">Naipe/Bônus</div>
+                <span class="spans" id="bonus1">0</span>
+              </div>
+              <div class="linha borda-p linha_bonus2">
+                <div class="dados">Jogada/Bônus</div>
+                <span class="spans" id="bonus2">0</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="etapa3" style="display: none;">
+      <div class="container d-flex justify-content-center etapa3">
+
+        <ul class="droppable-area1" disabled style="max-width: 650px;">
+          <div class="mensagem2" style="display: none; text-align: center;">
+            <p>Você Ganhou!!!</p>
+            <div class="avancarEtapa3">Nova Aposta</div>
+          </div>
+          <div class="mensagem3" style="display: none; text-align: center;">
+            <p>Você Perdeu!!!</p>
+            <div class="avancarEtapa3">Nova Aposta</div>
+          </div>
+          <div id="resposta1" class="ui-widget-content"></div>
+          <div id="resposta2" class="ui-widget-content"></div>
+          <div id="resposta3" class="ui-widget-content"></div>
+          <div id="resposta4" class="ui-widget-content"></div>
+          <div id="resposta5" class="ui-widget-content"></div>
+          <div id="resposta6" class="ui-widget-content"></div>
+          <div id="resposta7" class="ui-widget-content"></div>
+          <div id="resposta8" class="ui-widget-content"></div>
+          <div id="resposta9" class="ui-widget-content"></div>
+          <div id="resposta10" class="ui-widget-content"></div>
+          <div id="resposta11" class="ui-widget-content"></div>
+          <div id="resposta12" class="ui-widget-content"></div>
+          <div id="resposta13" class="ui-widget-content"></div>
+          <div id="resposta14" class="ui-widget-content"></div>
+          <div id="resposta15" class="ui-widget-content"></div>
+          <div id="resposta16" class="ui-widget-content"></div>
+          <div id="resposta17" class="ui-widget-content"></div>
+          <div id="resposta18" class="ui-widget-content"></div>
+          <li style="display: none;" class="lista" id="1">
+            <div class="flip-container">
+              <div class="flipper" id="1">
+                <div class="front"><img src="assets/cartas_01-01.png" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- front content -->
+                </div>
+                <div class="back"><img src="assets/cartas_01-02.png" alt="melancia" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- back content -->
+                </div>
+              </div>
+            </div>
+          </li>
+          <li style="display: none;" class="lista">
+            <div class="flip-container">
+              <div class="flipper" id="2">
+                <div class="front"><img src="assets/cartas_01-01.png" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- front content -->
+                </div>
+                <div class="back"><img src="assets/cartas_01-02.png" alt="maçã" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- back content -->
+                </div>
+              </div>
+            </div>
+          </li>
+          <li style="display: none;" class="lista">
+            <div class="flip-container">
+              <div class="flipper" id="3">
+                <div class="front"><img src="assets/cartas_01-01.png" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- front content -->
+                </div>
+                <div class="back"><img src="assets/cartas_01-02.png" alt="maçã" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- back content -->
+                </div>
+              </div>
+            </div>
+          </li>
+          <li style="display: none;" class="lista">
+            <div class="flip-container">
+              <div class="flipper" id="4">
+                <div class="front"><img src="assets/cartas_01-01.png" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- front content -->
+                </div>
+                <div class="back"><img src="assets/cartas_01-02.png" alt="melancia" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- back content -->
+                </div>
+              </div>
+            </div>
+          </li>
+          <li style="display: none;" class="lista">
+            <div class="flip-container">
+              <div class="flipper" id="5">
+                <div class="front"><img src="assets/cartas_01-01.png" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- front content -->
+                </div>
+                <div class="back"><img src="assets/cartas_01-02.png" alt="maçã" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- back content -->
+                </div>
+              </div>
+            </div>
+          </li>
+          <li style="display: none;" class="lista">
+            <div class="flip-container">
+              <div class="flipper" id="6">
+                <div class="front"><img src="assets/cartas_01-01.png" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- front content -->
+                </div>
+                <div class="back"><img src="assets/cartas_01-02.png" alt="melancia" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- back content -->
+                </div>
+              </div>
+            </div>
+          </li>
+          <li style="display: none;" class="lista">
+            <div class="flip-container">
+              <div class="flipper" id="7">
+                <div class="front"><img src="assets/cartas_01-01.png" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- front content -->
+                </div>
+                <div class="back2"><img src="assets/cartas_01-03.png" alt="melancia" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- back content -->
+                </div>
+              </div>
+            </div>
+          </li>
+          <li style="display: none;" class="lista">
+            <div class="flip-container">
+              <div class="flipper" id="8">
+                <div class="front"><img src="assets/cartas_01-01.png" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- front content -->
+                </div>
+                <div class="back2"><img src="assets/cartas_01-03.png" alt="maçã" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- back content -->
+                </div>
+              </div>
+            </div>
+          </li>
+          <li style="display: none;" class="lista">
+            <div class="flip-container">
+              <div class="flipper" id="9">
+                <div class="front"><img src="assets/cartas_01-01.png" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- front content -->
+                </div>
+                <div class="back2"><img src="assets/cartas_01-03.png" alt="maçã" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- back content -->
+                </div>
+              </div>
+            </div>
+          </li>
+          <li style="display: none;" class="lista">
+            <div class="flip-container">
+              <div class="flipper" id="10">
+                <div class="front"><img src="assets/cartas_01-01.png" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- front content -->
+                </div>
+                <div class="back2"><img src="assets/cartas_01-03.png" alt="maçã" style='height: 100%; width: 100%; object-fit: contain'>
+                  <!-- back content -->
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <!-- Rodapé -->
+  <footer>
+    <div class="container d-flex justify-content-between align-items-center" style="background-color: goldenrod">
+
+      <div class="cred-rea">
+
+        <!-- Comente em caso de adaptação do REA -->
+        <p>
+          <span>Recurso Educacional Aberto (REA) desenvolvido pela <a href="https://univesp.br/" target="blank">Univesp</a>, disponível sob licença <a href="http://apps.univesp.br/common/license_MIT_2019.txt" target="_blank">MIT</a>.
+            Você pode utilizá-lo, compartilhá-lo e modificá-lo.</span>
+          <span><button class="btn btn-link" data-toggle="modal" data-target="#creditos">Créditos</button></span>
+          <p>
+            <!-- Descomente em caso de adaptação do REA -->
+            <!-- <p>
+          <span>Recurso Educacional Aberto (REA) adaptado por SEU NOME.</span>
+          <span><a href="#">Versão original da Univesp</a></span>
+        </p> -->
+      </div>
+
+      <div class="aval-rea d-flex">
+        <!-- Atualizar "Nome+do+Recurso" -->
+        <a class="btn btn-secondary" href="https://forms.office.com/r/v88eqM2Z90" target="_blank" style="background-color: goldenrod">Avaliar
+          este recurso</a>
+        <!-- Atualizar "Nome+do+Recurso" -->
+        <a class="btn btn-secondary" href="https://forms.office.com/r/BU3heRJ9ZP" target="_blank"
+          style="background-color: goldenrod">Reportar erro</a>
+      </div>
+
+    </div>
+  </footer>
+  <!-- Fim do rodapé -->
+
+  <!-- Fim da div .esconder-tela-pequena
+  Utilizar essa div caso o REA não se adapte a todos os formatos de tela -->
+  <!-- </div> -->
+
+  <!-- AVISO =+960px -->
+  <!-- Utilizar caso o REA possua limitações quanto aos tamanhos de tela
+  Caso contrário, deletar -->
+  <!-- <div class= "container d-lg-none text-center">
+    <div class="container">
+      <a href="https://univesp.br/" target="_blank">
+        <img src="https://apps.univesp.br/common/logo-univesp-positivo.svg" alt="Logo da Univesp" height="47px" width="135px" class='img-responsive center-block' style="margin-top:4rem">
+      </a>
+    </div>
+    <img src='https://apps.univesp.br/common/aviso-tela.gif' alt="Computador Animado" height="117px" width="160px" class='img-responsive center-block' style="margin-top:3rem">
+    <div style="margin-top:.5rem">
+      <p>
+        <font style=font-family:"Barlow" color="#3b78d1" 'text-center' size="10rem"><b>OPS!</b></font>
+      </p>
+      <p>
+        <font style=font-family:"Verdana" "text-center" size="3rem">Visualize este recurso em um computador, em janela com largura mínima de 992px.</font>
+      </p>
+    </div>
+  </div> -->
+
+  <!-- Créditos -->
+  <div class="modal fade" id="creditos" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body" style="text-align: left;">
+
+          <h6>Governo do Estado de São Paulo</h6>
+          <p>Secretaria de Desenvolvimento Econômico</p>
+
+          <h6>UNIVERSIDADE VIRTUAL DO ESTADO DE SÃO PAULO – UNIVESP</h6>
+          <p><span class="funcao">Presidente</span>Rodolfo Jardim de Azevedo</p>
+          <p><span class="funcao">Diretora Acadêmica</span>Simone Telles Martins Ramos</p>
+
+          <h6>Equipe</h6>
+          <p><span class="funcao">Docente responsável</span>Profa. Ma. Jediane Teixeira de Souza</p>
+          <p><span class="funcao">Coordenação</span>Édison Trombeta</p>
+          <p><span class="funcao">Roteirização e Design Instrucional</span>Alfredo Coelho e Yasmin Kapustin</p>
+          <p><span class="funcao">Ilustração</span>Francesco Felippe Micielli</p>
+          <p><span class="funcao">Layout</span>Jonas Cruz</p>
+          <p><span class="funcao">Programação</span>Celso Oliveira, Alberto Ortiz Mendes e Jonas Cruz</p>
+
+        </div>
+        <div class="modal-footer">
+          <p>Maio/2019</p>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arquivos Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://apps.univesp.br/common/jquery-ui-touch-punch.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+  <!-- jsSocials -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js"></script>
+  <script>
+    var share = $("#share-buttons");
+    var page_title = $(document).attr('title');
+    var page_url = window.location.href;
+    share.jsSocials({
+      shares: [{
+          share: "facebook",
+          label: "Facebook",
+          logo: "fab fa-facebook-f",
+        },
+        {
+          share: "twitter",
+          label: "Twitter",
+          logo: "fab fa-twitter",
+        },
+        {
+          share: "whatsapp",
+          label: "Whatsapp",
+          logo: "fab fa-whatsapp",
+        },
+      ],
+      url: page_url,
+      text: 'Confira o REA ' + page_title + '.',
+      showLabel: true,
+      showCount: false,
+      shareIn: "popup",
+    });
+  </script>
+
+
+  <!-- Custom JS -->
+  <script type="text/javascript" src="javascripts/events.js"></script>
+
+  <!-- MathJax. Descomente se for utilizar. Caso contrário, remova. -->
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+  <!-- Analytics. Remova em caso de reutilização do REA -->
+  <script src="https://apps.univesp.br/common/analytics.js"></script>
+
+</body>
+
+</html>
